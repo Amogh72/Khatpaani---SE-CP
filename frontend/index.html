@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>खतपाणी – KhatPaani</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi:ital@0;1&family=Baloo+2:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+:root{
+  --saffron:#E8611A;--saffron-lite:#FAE5D3;--saffron-dark:#B84A0E;
+  --green:#2E6B1F;--green-lite:#D6ECD0;--green-mid:#3D8C2A;--green-dark:#1A4210;
+  --earth:#6B3F1E;--earth-lite:#F5EBE0;--earth-mid:#9C5C2E;
+  --sky:#1B5FA3;--sky-lite:#E3F0FB;
+  --marigold:#F4B942;
+  --cream:#FDF6EE;--cream-dark:#F5EAD8;
+  --ink:#1C1008;--muted:#7A5F48;--border:#E4D0BC;--white:#FFFFFF;
+}
+body{font-family:'Baloo 2',sans-serif;background:var(--cream);color:var(--ink);overflow-x:hidden}
+
+/* NAV */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(13, 38, 10, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  height: 64px;
+  display: flex;
+  align-items: center;
+  padding: 0 5%;
+  justify-content: space-between;
+}
+.nav-brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-logo{width:38px;height:38px;background:var(--saffron);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;border:2px solid rgba(255,255,255,0.25);flex-shrink:0}
+.nav-name{font-family:'Tiro Devanagari Hindi',serif;font-size:22px;color:#fff;line-height:1}
+.nav-name small{display:block;font-family:'Baloo 2',sans-serif;font-size:9px;color:rgba(255,255,255,0.55);letter-spacing:2px;text-transform:uppercase;margin-top:1px}
+.nav-right{display:flex;align-items:center;gap:20px}
+.nav-links{display:flex;gap:22px;list-style:none}
+.nav-links a{color:rgba(255,255,255,0.7);font-size:13px;font-weight:500;text-decoration:none;transition:color 0.2s}
+.nav-links a:hover{color:#fff}
+.lang-toggle{display:flex;background:rgba(255,255,255,0.12);border-radius:20px;padding:3px;gap:2px}
+.lang-btn{border:none;background:transparent;color:rgba(255,255,255,0.65);font-family:'Baloo 2',sans-serif;font-size:12px;font-weight:600;padding:4px 13px;border-radius:16px;cursor:pointer;transition:all 0.2s}
+.lang-btn.active{background:var(--saffron);color:#fff}
+@media(max-width:600px){.nav-links{display:none}}
+
+/* HERO */
+.hero {
+  min-height: 90vh;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  padding: 100px 50px 45px 50px;  
+
+  background-image: url("hero\ \(1\).png");
+  background-size: cover;
+  background-position: center 40%;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    rgba(10, 32, 8, 0.88) 0%,
+    rgba(10, 32, 8, 0.72) 45%,
+    rgba(10, 32, 8, 0.40) 100%
+  );
+  pointer-events: none;
+}
+
+.hero::after{content:'';position:absolute;right:-120px;bottom:-80px;width:500px;height:500px;background:radial-gradient(circle,rgba(232,97,26,0.18) 0%,transparent 70%);pointer-events:none}
+.hero-inner{position:relative;z-index:2;max-width:680px;animation:fadeUp 0.9s ease both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(244,185,66,0.15);border:1px solid rgba(244,185,66,0.35);border-radius:20px;padding:5px 14px;margin-bottom:24px}
+.hero-eyebrow span{color:var(--marigold);font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase}
+.hero-eyebrow .pulse{width:7px;height:7px;background:var(--marigold);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(0.7)}}
+.hero-heading{font-family:'Tiro Devanagari Hindi',serif;font-size:clamp(44px,8vw,82px);color:#fff;line-height:1.05;margin-bottom:6px}
+.hero-heading .accent{color:var(--saffron)}
+.hero-sub{font-size:clamp(14px,2.5vw,18px);color:rgba(255,255,255,0.5);font-weight:400;margin-bottom:20px;letter-spacing:0.3px}
+.hero-desc{font-size:clamp(14px,2vw,16px);color:rgba(255,255,255,0.7);line-height:1.75;max-width:520px;margin-bottom:34px}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+.btn-prim{background:var(--saffron);color:#fff;border:none;padding:14px 28px;border-radius:12px;font-family:'Tiro Devanagari Hindi',serif;font-size:17px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;box-shadow:0 4px 0 var(--saffron-dark);transition:transform 0.1s,box-shadow 0.1s,background 0.15s}
+.btn-prim:hover{background:var(--saffron-dark)}
+.btn-prim:active{transform:translateY(3px);box-shadow:0 1px 0 var(--saffron-dark)}
+.btn-sec{background:rgba(255,255,255,0.1);color:#fff;border:1.5px solid rgba(255,255,255,0.25);padding:13px 22px;border-radius:12px;font-family:'Baloo 2',sans-serif;font-size:14px;font-weight:600;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:background 0.15s,border-color 0.15s}
+.btn-sec:hover{background:rgba(255,255,255,0.18);border-color:rgba(255,255,255,0.5)}
+.hero-stats{display:flex;gap:32px;margin-top:50px;flex-wrap:wrap}
+.hstat{border-left:3px solid var(--saffron);padding-left:14px}
+.hstat-num{font-family:'Tiro Devanagari Hindi',serif;font-size:30px;color:#fff;line-height:1}
+.hstat-label{font-size:11px;color:rgba(255,255,255,0.45);margin-top:3px;text-transform:uppercase;letter-spacing:0.5px}
+.hero-float{position:absolute;right:6%;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.07);border:1.5px solid rgba(255,255,255,0.13);border-radius:20px;padding:22px 24px;text-align:center;display:none;backdrop-filter:blur(6px);animation:fadeUp 1.1s 0.3s ease both}
+@media(min-width:900px){.hero-float{display:block}}
+.hf-icon{font-size:48px;margin-bottom:10px;display:block}
+.hf-text{color:rgba(255,255,255,0.75);font-size:12px;line-height:1.6;max-width:130px}
+
+/* SHARED SECTION */
+section{padding:80px 5%}
+.sec-label{display:inline-block;background:var(--saffron-lite);color:var(--saffron-dark);font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:14px;border:1px solid rgba(232,97,26,0.2)}
+.sec-h{font-family:'Tiro Devanagari Hindi',serif;font-size:clamp(28px,5vw,48px);color:var(--green-dark);line-height:1.15;margin-bottom:12px}
+.sec-p{font-size:clamp(14px,2vw,16px);color:var(--muted);line-height:1.75;max-width:560px}
+hr.div{border:none;border-top:2px dashed var(--border);margin:0}
+
+/* ABOUT */
+#about{background:var(--white)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;margin-top:48px}
+@media(max-width:720px){.about-grid{grid-template-columns:1fr;gap:32px}}
+.about-vis{
+  background:var(--green-dark);border-radius:24px;padding:36px 28px;
+  position:relative;overflow:hidden;min-height:340px;
+  display:flex;flex-direction:column;justify-content:flex-end;
+}
+.about-vis::before{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(170deg,transparent 0,transparent 26px,rgba(255,255,255,0.03) 26px,rgba(255,255,255,0.03) 28px)}
+.av-icon{font-size:76px;position:absolute;top:28px;right:28px;animation:sway 4s ease-in-out infinite;filter:drop-shadow(0 4px 14px rgba(0,0,0,0.3))}
+@keyframes sway{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+.av-tag{position:relative;z-index:2;background:rgba(244,185,66,0.2);border:1px solid rgba(244,185,66,0.4);border-radius:12px;padding:14px 16px;display:inline-block;margin-bottom:10px;max-width:210px}
+.avt-num{font-family:'Tiro Devanagari Hindi',serif;font-size:32px;color:var(--marigold);line-height:1}
+.avt-label{font-size:11px;color:rgba(255,255,255,0.55);margin-top:3px;text-transform:uppercase;letter-spacing:0.5px}
+.av-cap{position:relative;z-index:2;color:rgba(255,255,255,0.45);font-size:12px}
+.about-pts{list-style:none;margin-top:20px;display:flex;flex-direction:column;gap:18px}
+.apoint{display:flex;gap:14px;align-items:flex-start}
+.ap-ico{width:44px;height:44px;border-radius:12px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:20px}
+.ap-ico.s{background:var(--saffron-lite)}
+.ap-ico.g{background:var(--green-lite)}
+.ap-ico.b{background:var(--sky-lite)}
+.ap-t{font-size:15px;font-weight:700;color:var(--green-dark);margin-bottom:3px}
+.ap-d{font-size:13px;color:var(--muted);line-height:1.55}
+
+/* HOW IT WORKS */
+#how{background:var(--cream)}
+.how-hd{text-align:center;margin-bottom:52px}
+.how-hd .sec-p{margin:0 auto}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:22px}
+.step{background:var(--white);border:1.5px solid var(--border);border-radius:20px;padding:28px 22px;position:relative;overflow:hidden;transition:border-color 0.25s,transform 0.25s}
+.step::after{content:'';position:absolute;bottom:0;left:0;right:0;height:4px;border-radius:0 0 20px 20px;background:var(--saffron);transform:scaleX(0);transform-origin:left;transition:transform 0.3s}
+.step:hover{border-color:var(--saffron);transform:translateY(-4px)}
+.step:hover::after{transform:scaleX(1)}
+.step-n{font-family:'Tiro Devanagari Hindi',serif;font-size:50px;color:var(--saffron-lite);line-height:1;margin-bottom:14px}
+.step-ico{font-size:32px;margin-bottom:8px;display:block}
+.step-t{font-family:'Tiro Devanagari Hindi',serif;font-size:20px;color:var(--green-dark);margin-bottom:6px}
+.step-en{font-size:11px;color:var(--saffron);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px}
+.step-d{font-size:13px;color:var(--muted);line-height:1.6}
+
+/* CROPS */
+#crops{background:var(--cream-dark);padding:64px 5%}
+.crops-hd{text-align:center;margin-bottom:36px}
+.crops-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:16px}
+.crop{background:var(--white);border:1.5px solid var(--border);border-radius:16px;padding:22px 16px;text-align:center;transition:border-color 0.2s,transform 0.2s}
+.crop:hover{border-color:var(--green-mid);transform:translateY(-3px)}
+.crop-em{font-size:38px;margin-bottom:10px}
+.crop-n{font-family:'Tiro Devanagari Hindi',serif;font-size:19px;color:var(--green-dark);margin-bottom:3px}
+.crop-en{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px}
+.crop-kc{display:inline-block;margin-top:10px;background:var(--green-lite);color:var(--green-dark);font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px}
+
+/* DASHBOARD */
+#dashboard{background:var(--green-dark);position:relative;overflow:hidden}
+#dashboard::before{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(170deg,transparent 0,transparent 28px,rgba(255,255,255,0.025) 28px,rgba(255,255,255,0.025) 30px);pointer-events:none}
+#dashboard::after{content:'';position:absolute;left:-80px;top:-80px;width:400px;height:400px;background:radial-gradient(circle,rgba(232,97,26,0.15) 0%,transparent 70%);pointer-events:none}
+.di{position:relative;z-index:2}
+.dash-hd{text-align:center;margin-bottom:40px}
+.dash-hd .sec-label{background:rgba(244,185,66,0.15);color:var(--marigold);border-color:rgba(244,185,66,0.3)}
+.dash-hd .sec-h{color:#fff}
+.dash-hd .sec-p{color:rgba(255,255,255,0.6);margin:0 auto}
+
+.wx-strip{background:rgba(255,255,255,0.07);border:1.5px solid rgba(255,255,255,0.12);border-radius:16px;padding:16px 20px;margin-bottom:24px;display:none}
+.wx-strip.show{display:block}
+.wx-title{font-size:11px;color:rgba(255,255,255,0.45);letter-spacing:1px;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.wx-title::after{content:'';flex:1;height:1px;background:rgba(255,255,255,0.1)}
+.wx-items{display:flex;gap:10px;flex-wrap:wrap}
+.wi{flex:1;min-width:90px;background:rgba(255,255,255,0.06);border-radius:12px;padding:12px;text-align:center;border:1px solid rgba(255,255,255,0.08)}
+.wi-ico{font-size:20px;margin-bottom:4px}
+.wi-v{font-size:17px;font-weight:700;color:#fff;display:block}
+.wi-n{font-size:10px;color:rgba(255,255,255,0.4);margin-top:2px}
+
+.farm-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:28px}
+.fc{background:rgba(255,255,255,0.95);border-radius:20px;overflow:hidden;transition:transform 0.2s}
+.fc:hover{transform:translateY(-3px)}
+.fc-top{padding:16px 18px 14px;border-bottom:2px solid var(--cream);display:flex;align-items:center;gap:12px}
+.fc-av{width:48px;height:48px;border-radius:50%;background:var(--earth-lite);display:flex;align-items:center;justify-content:center;font-size:22px;border:2px solid var(--border);flex-shrink:0}
+.fc-nm{font-family:'Tiro Devanagari Hindi',serif;font-size:21px;color:var(--earth);flex:1;line-height:1.1}
+.fc-cr{font-size:11px;color:var(--muted);margin-top:2px}
+.fc-pill{font-size:12px;font-weight:700;padding:5px 12px;border-radius:20px;flex-shrink:0}
+.p-ok{background:var(--green-lite);color:var(--green-dark)}
+.p-irr{background:#FEE2E2;color:#991B1B}
+.fc-body{padding:14px 18px}
+.chips{display:flex;gap:8px;margin-bottom:12px}
+.chip{flex:1;background:var(--cream);border:1px solid var(--border);border-radius:10px;padding:8px 6px;text-align:center}
+.cl{font-size:9px;text-transform:uppercase;color:var(--muted);letter-spacing:0.4px}
+.cv{font-size:14px;font-weight:700;color:var(--earth);display:block;margin-top:2px}
+.m-row{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:5px}
+.m-pct{font-weight:700;color:var(--earth);font-size:13px}
+.bar-bg{background:var(--earth-lite);border-radius:8px;height:12px;overflow:hidden}
+.bar-f{height:100%;border-radius:8px;transition:width 0.7s ease;background:var(--green)}
+.bar-f.low{background:#F59E0B}
+.bar-f.crit{background:#EF4444}
+.rb{margin-top:12px;border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:10px}
+.rb.irr{background:var(--saffron-lite);border:1.5px solid #F4C8A8}
+.rb.ok{background:var(--green-lite);border:1.5px solid #A7D49B}
+.rb-ico{font-size:24px;flex-shrink:0}
+.rb-main{font-size:16px;font-weight:700;line-height:1.2}
+.rb-main.irr{color:var(--saffron-dark)}
+.rb-main.ok{color:var(--green-dark)}
+.rb-sub{font-size:11px;color:var(--muted);margin-top:2px}
+.reason{margin-top:8px;font-size:11px;color:var(--muted);display:flex;gap:4px}
+
+.btn-wrap{text-align:center}
+.btn-check{background:var(--saffron);color:#fff;border:none;padding:16px 44px;border-radius:14px;font-family:'Tiro Devanagari Hindi',serif;font-size:20px;cursor:pointer;display:inline-flex;align-items:center;gap:10px;box-shadow:0 5px 0 var(--saffron-dark);transition:transform 0.1s,box-shadow 0.1s,background 0.15s}
+.btn-check:hover{background:var(--saffron-dark)}
+.btn-check:active{transform:translateY(4px);box-shadow:0 1px 0 var(--saffron-dark)}
+.btn-check:disabled{background:#888;box-shadow:0 4px 0 #555;cursor:not-allowed;transform:none}
+.btn-note{margin-top:10px;font-size:12px;color:rgba(255,255,255,0.35)}
+
+.state-box{text-align:center;padding:3rem 1rem}
+.se{font-size:56px;margin-bottom:14px}
+.st{font-family:'Tiro Devanagari Hindi',serif;font-size:24px;color:#fff;margin-bottom:6px}
+.ss{font-size:14px;color:rgba(255,255,255,0.5)}
+.dot{display:inline-block;width:10px;height:10px;background:var(--saffron);border-radius:50%;margin:0 3px;animation:hop 0.8s infinite}
+.dot:nth-child(2){animation-delay:.15s}
+.dot:nth-child(3){animation-delay:.3s}
+@keyframes hop{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.err-box{background:rgba(254,226,226,0.1);border:1.5px solid rgba(254,202,202,0.3);border-radius:16px;padding:24px;text-align:center;margin-bottom:24px}
+.err-t{font-size:16px;font-weight:700;color:#FCA5A5;margin:8px 0 6px}
+.err-b{font-size:13px;color:rgba(255,255,255,0.5);line-height:1.7}
+code{background:rgba(255,255,255,0.1);color:var(--marigold);padding:2px 7px;border-radius:5px;font-family:monospace;font-size:12px}
+
+/* FOOTER */
+footer{background:var(--ink);color:rgba(255,255,255,0.6);border-top:4px solid var(--saffron)}
+.ft-main{padding:60px 5% 40px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px}
+@media(max-width:720px){.ft-main{grid-template-columns:1fr 1fr;gap:28px}}
+@media(max-width:440px){.ft-main{grid-template-columns:1fr;gap:20px}}
+.ft-brand .fb-name{font-family:'Tiro Devanagari Hindi',serif;font-size:28px;color:#fff;display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.fb-badge{width:36px;height:36px;background:var(--saffron);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px}
+.ft-brand p{font-size:13px;line-height:1.75;max-width:280px;margin-bottom:16px}
+.ft-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:20px;padding:5px 12px;font-size:11px;color:rgba(255,255,255,0.45)}
+.ft-col h4{font-family:'Tiro Devanagari Hindi',serif;font-size:16px;color:#fff;margin-bottom:14px}
+.ft-col ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.ft-col ul li{font-size:13px}
+.ft-col ul li a{color:rgba(255,255,255,0.5);text-decoration:none;transition:color 0.2s}
+.ft-col ul li a:hover{color:var(--saffron)}
+.ft-tech{background:rgba(255,255,255,0.03);border-top:1px solid rgba(255,255,255,0.08);padding:20px 5%;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.tb-row{display:flex;gap:8px;flex-wrap:wrap}
+.tb{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:4px 10px;font-size:11px;color:rgba(255,255,255,0.4)}
+.ft-copy{padding:14px 5%;background:rgba(0,0,0,0.2);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:11px;color:rgba(255,255,255,0.3)}
+.flag-wrap{display:flex;align-items:center;gap:7px}
+.fl{display:flex;flex-direction:column;gap:2px}
+.fs{width:20px;height:4px;border-radius:2px}
+.fs-o{background:#FF9933}
+.fs-w{background:#fff}
+.fs-g{background:#138808}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="#">
+    <div class="nav-logo">🌾</div>
+    <div class="nav-name">खतपाणी<small>KhatPaani</small></div>
+  </a>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="#about" data-hi="हमारे बारे में" data-en="About">हमारे बारे में</a></li>
+      <li><a href="#how" data-hi="कैसे काम करता है" data-en="How It Works">कैसे काम करता है</a></li>
+      <li><a href="#crops" data-hi="फसलें" data-en="Crops">फसलें</a></li>
+      <li><a href="#dashboard" data-hi="जांच करें" data-en="Check Now">जांच करें</a></li>
+    </ul>
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="btn-hi" onclick="setLang('hi')">हिंदी</button>
+      <button class="lang-btn" id="btn-en" onclick="setLang('en')">English</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">
+      <div class="pulse"></div>
+      <span data-hi="NASA POWER डेटा से संचालित" data-en="Powered by NASA POWER Data">NASA POWER डेटा से संचालित</span>
+    </div>
+    <h1 class="hero-heading">
+      <span data-hi="सही समय पर" data-en="Right Water,">सही समय पर</span><br>
+      <span class="accent" data-hi="सही पानी।" data-en="Right Time.">सही पानी।</span>
+    </h1>
+    <p class="hero-sub" data-hi="Right Water, Right Time." data-en="सही समय पर सही पानी।">Right Water, Right Time.</p>
+    <p class="hero-desc" data-hi="खतपाणी आपकी मिट्टी, फसल और मौसम के डेटा को मिलाकर बताता है — आज सिंचाई करनी है या नहीं। पानी बचाएं, फसल बढ़ाएं।" data-en="KhatPaani combines your soil, crop, and live weather data to tell you exactly — irrigate today or not. Save water, grow more.">खतपाणी आपकी मिट्टी, फसल और मौसम के डेटा को मिलाकर बताता है — आज सिंचाई करनी है या नहीं। पानी बचाएं, फसल बढ़ाएं।</p>
+    <div class="hero-cta">
+      <a href="#dashboard" class="btn-prim">
+        <span>🔁</span><span data-hi="आज की जांच करें" data-en="Check Today">आज की जांच करें</span>
+      </a>
+      <a href="#how" class="btn-sec">
+        <span data-hi="यह कैसे काम करता है?" data-en="How does it work?">यह कैसे काम करता है?</span> ↓
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div class="hstat"><div class="hstat-num">30%</div><div class="hstat-label" data-hi="पानी की बचत" data-en="Water Saved">पानी की बचत</div></div>
+      <div class="hstat"><div class="hstat-num" data-hi="रोज़" data-en="Daily">रोज़</div><div class="hstat-label" data-hi="नई NASA रीडिंग" data-en="Fresh NASA Readings">नई NASA रीडिंग</div></div>
+      <div class="hstat"><div class="hstat-num" data-hi="मुफ़्त" data-en="Free">मुफ़्त</div><div class="hstat-label" data-hi="हमेशा के लिए" data-en="Always Free">हमेशा के लिए</div></div>
+    </div>
+  </div>
+</section>
+
+<hr class="div"/>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="sec-label" data-hi="हमारे बारे में" data-en="About">हमारे बारे में</div>
+  <h2 class="sec-h" data-hi="किसान के लिए, किसान की भाषा में।" data-en="Built for the farmer, in the farmer's language.">किसान के लिए, किसान की भाषा में।</h2>
+  <p class="sec-p" data-hi="खतपाणी एक सरल सिंचाई सहायक है जो वैज्ञानिक तरीके से काम करता है — बिना जटिल प्रक्रिया के।" data-en="KhatPaani is a simple irrigation assistant that works scientifically — without complicated processes.">खतपाणी एक सरल सिंचाई सहायक है जो वैज्ञानिक तरीके से काम करता है — बिना जटिल प्रक्रिया के।</p>
+  <div class="about-grid">
+    <div class="about-vis">
+      <div class="av-icon">🌱</div>
+      <div class="av-tag">
+        <div class="avt-num">ET₀</div>
+        <div class="avt-label" data-hi="Penman-Monteith समीकरण" data-en="Penman-Monteith Equation">Penman-Monteith समीकरण</div>
+      </div>
+      <div class="av-cap" data-hi="FAO-56 मानक विधि से वाष्पोत्सर्जन गणना" data-en="Evapotranspiration by FAO-56 standard">FAO-56 मानक विधि से वाष्पोत्सर्जन गणना</div>
+    </div>
+    <div>
+      <ul class="about-pts">
+        <li class="apoint">
+          <div class="ap-ico s">🛰️</div>
+          <div>
+            <div class="ap-t" data-hi="NASA का लाइव डेटा" data-en="Live NASA Data">NASA का लाइव डेटा</div>
+            <div class="ap-d" data-hi="हर रोज़ NASA POWER से तापमान, हवा, नमी और सौर विकिरण का डेटा स्वचालित रूप से आता है।" data-en="Every day, temperature, wind, humidity and solar radiation arrives automatically from NASA POWER.">हर रोज़ NASA POWER से तापमान, हवा, नमी और सौर विकिरण का डेटा स्वचालित रूप से आता है।</div>
+          </div>
+        </li>
+        <li class="apoint">
+          <div class="ap-ico g">🌿</div>
+          <div>
+            <div class="ap-t" data-hi="फसल के अनुसार गणना" data-en="Crop-Specific Calculation">फसल के अनुसार गणना</div>
+            <div class="ap-d" data-hi="कपास हो या गेहूं — हर फसल की अवस्था (Kc) के हिसाब से पानी की जरूरत अलग होती है।" data-en="Cotton or wheat — water needs differ by each crop's growth stage (Kc value).">कपास हो या गेहूं — हर फसल की अवस्था (Kc) के हिसाब से पानी की जरूरत अलग होती है।</div>
+          </div>
+        </li>
+        <li class="apoint">
+          <div class="ap-ico b">💧</div>
+          <div>
+            <div class="ap-t" data-hi="मिट्टी की नमी ट्रैकिंग" data-en="Soil Moisture Tracking">मिट्टी की नमी ट्रैकिंग</div>
+            <div class="ap-d" data-hi="Field capacity और wilting point के बीच नमी देखकर बताता है — कब सिंचाई जरूरी है।" data-en="By watching moisture between field capacity and wilting point, it tells you when irrigation is truly needed.">Field capacity और wilting point के बीच नमी देखकर बताता है — कब सिंचाई जरूरी है।</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<hr class="div"/>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="how-hd">
+    <div class="sec-label" data-hi="यह कैसे काम करता है" data-en="How It Works">यह कैसे काम करता है</div>
+    <h2 class="sec-h" data-hi="चार कदम, एक जवाब।" data-en="Four steps, one answer.">चार कदम, एक जवाब।</h2>
+    <p class="sec-p" data-hi="विज्ञान और सरलता का मेल — हर दिन सही फैसला।" data-en="Science meets simplicity — the right decision every day.">विज्ञान और सरलता का मेल — हर दिन सही फैसला।</p>
+  </div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-n">01</div>
+      <span class="step-ico">🛰️</span>
+      <div class="step-en" data-hi="मौसम डेटा" data-en="Weather Data">मौसम डेटा</div>
+      <h3 class="step-t" data-hi="NASA से डेटा आता है" data-en="Data arrives from NASA">NASA से डेटा आता है</h3>
+      <p class="step-d" data-hi="पुणे के लिए NASA POWER API से आज का तापमान, हवा, आर्द्रता और बारिश का डेटा लिया जाता है।" data-en="Today's temperature, wind, humidity and rainfall is fetched from NASA POWER API for Pune.">पुणे के लिए NASA POWER API से आज का तापमान, हवा, आर्द्रता और बारिश का डेटा लिया जाता है।</p>
+    </div>
+    <div class="step">
+      <div class="step-n">02</div>
+      <span class="step-ico">🌡️</span>
+      <div class="step-en" data-hi="ET₀ गणना" data-en="ET₀ Calculation">ET₀ गणना</div>
+      <h3 class="step-t" data-hi="वाष्पोत्सर्जन मापा जाता है" data-en="Evapotranspiration is measured">वाष्पोत्सर्जन मापा जाता है</h3>
+      <p class="step-d" data-hi="Penman-Monteith FAO-56 समीकरण से ET₀ निकाला जाता है — यह बताता है आज कितना पानी हवा ले जाएगी।" data-en="ET₀ is calculated using Penman-Monteith FAO-56 — this tells how much water the atmosphere will take today.">Penman-Monteith FAO-56 से Reference ET₀ निकाला जाता है।</p>
+    </div>
+    <div class="step">
+      <div class="step-n">03</div>
+      <span class="step-ico">🌿</span>
+      <div class="step-en" data-hi="फसल ET (ETc)" data-en="Crop ET (ETc)">फसल ET (ETc)</div>
+      <h3 class="step-t" data-hi="फसल की जरूरत तय होती है" data-en="Crop water need determined">फसल की जरूरत तय होती है</h3>
+      <p class="step-d" data-hi="Kc × ET₀ = ETc — फसल की अवस्था के हिसाब से असली पानी की जरूरत निकाली जाती है।" data-en="Kc × ET₀ = ETc — actual crop water need is determined by growth stage.">Kc × ET₀ = ETc — फसल की अवस्था के हिसाब से असली पानी की जरूरत।</p>
+    </div>
+    <div class="step">
+      <div class="step-n">04</div>
+      <span class="step-ico">💧</span>
+      <div class="step-en" data-hi="सिंचाई फैसला" data-en="Irrigation Decision">सिंचाई फैसला</div>
+      <h3 class="step-t" data-hi="सिंचाई करें या नहीं?" data-en="Irrigate or not?">सिंचाई करें या नहीं?</h3>
+      <p class="step-d" data-hi="मिट्टी की नमी जांचकर बताता है — कितने लीटर पानी देना है, या आज कोई जरूरत नहीं।" data-en="Checking soil moisture, it tells you exactly how many litres to apply — or that no irrigation is needed today.">मिट्टी की नमी जांचकर बताता है — कितने लीटर पानी, या आज जरूरत नहीं।</p>
+    </div>
+  </div>
+</section>
+
+<hr class="div"/>
+
+<!-- CROPS -->
+<section id="crops">
+  <div class="crops-hd">
+    <div class="sec-label" data-hi="समर्थित फसलें" data-en="Supported Crops">समर्थित फसलें</div>
+    <h2 class="sec-h" data-hi="कौन सी फसलें?" data-en="Which Crops?">कौन सी फसलें?</h2>
+  </div>
+  <div class="crops-grid">
+    <div class="crop"><div class="crop-em">🌸</div><div class="crop-n" data-hi="कपास" data-en="Cotton">कपास</div><div class="crop-en" data-hi="Cotton" data-en="कपास">Cotton</div><div class="crop-kc">Kc: 0.3 → 1.15</div></div>
+    <div class="crop"><div class="crop-em">🌾</div><div class="crop-n" data-hi="गेहूं" data-en="Wheat">गेहूं</div><div class="crop-en" data-hi="Wheat" data-en="गेहूं">Wheat</div><div class="crop-kc">Kc: 0.4 → 1.1</div></div>
+    <div class="crop" style="border:1.5px dashed var(--border);background:var(--cream)"><div class="crop-em">➕</div><div class="crop-n" data-hi="जल्द आ रहा है" data-en="Coming Soon">जल्द आ रहा है</div><div class="crop-en" data-hi="More crops" data-en="और फसलें">More crops</div><div class="crop-kc" style="background:var(--earth-lite);color:var(--earth)">TBA</div></div>
+  </div>
+</section>
+
+<!-- DASHBOARD -->
+<section id="dashboard">
+  <div class="di">
+    <div class="dash-hd">
+      <div class="sec-label" data-hi="लाइव जांच" data-en="Live Check">लाइव जांच</div>
+      <h2 class="sec-h" data-hi="आज सिंचाई करनी है?" data-en="Should I irrigate today?">आज सिंचाई करनी है?</h2>
+      <p class="sec-p" data-hi="बटन दबाएं — NASA डेटा और मिट्टी की जानकारी से तुरंत जवाब मिलेगा।" data-en="Press the button — get an instant answer from NASA data and your soil information.">बटन दबाएं — NASA डेटा और मिट्टी की जानकारी से तुरंत जवाब मिलेगा।</p>
+    </div>
+
+    <div class="wx-strip" id="wx-strip">
+      <div class="wx-title" data-hi="आज का मौसम — NASA POWER" data-en="Today's Weather — NASA POWER">आज का मौसम — NASA POWER</div>
+      <div class="wx-items" id="wx-items"></div>
+    </div>
+
+    <div class="farm-grid" id="farm-grid">
+      <div class="state-box" style="grid-column:1/-1">
+        <div class="se">🌾</div>
+        <div class="st" data-hi="नमस्ते! खतपाणी में आपका स्वागत है।" data-en="Welcome to KhatPaani!">नमस्ते! खतपाणी में आपका स्वागत है।</div>
+        <div class="ss" data-hi="नीचे का बटन दबाकर आज की जांच करें।" data-en="Press the button below to check today's irrigation needs.">नीचे का बटन दबाकर आज की जांच करें।</div>
+      </div>
+    </div>
+
+    <div class="btn-wrap">
+      <button class="btn-check" id="calc-btn" onclick="calculate()">
+        <span>🔁</span>
+        <span data-hi="आज की जांच करें" data-en="Check Today">आज की जांच करें</span>
+      </button>
+      <div class="btn-note" data-hi="सर्वर port 3000 पर चलना चाहिए" data-en="Backend must be running on port 3000">सर्वर port 3000 पर चलना चाहिए</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-main">
+    <div class="ft-brand">
+      <div class="fb-name"><div class="fb-badge">🌾</div>खतपाणी</div>
+      <p data-hi="भारतीय किसानों के लिए एक स्मार्ट सिंचाई सहायक। मिट्टी, फसल और मौसम के डेटा से हर रोज़ सही फैसला लें। पानी बचाएं, फसल बढ़ाएं।" data-en="A smart irrigation assistant for Indian farmers. Make the right decision every day from soil, crop and weather data. Save water, grow more.">भारतीय किसानों के लिए एक स्मार्ट सिंचाई सहायक। मिट्टी, फसल और मौसम के डेटा से हर रोज़ सही फैसला लें।</p>
+      <div class="ft-tag"><span>📍</span><span data-hi="पुणे, महाराष्ट्र, भारत" data-en="Pune, Maharashtra, India">पुणे, महाराष्ट्र, भारत</span></div>
+    </div>
+    <div class="ft-col">
+      <h4 data-hi="पन्ने" data-en="Pages">पन्ने</h4>
+      <ul>
+        <li><a href="#home" data-hi="होम" data-en="Home">होम</a></li>
+        <li><a href="#about" data-hi="हमारे बारे में" data-en="About">हमारे बारे में</a></li>
+        <li><a href="#how" data-hi="कैसे काम करता है" data-en="How It Works">कैसे काम करता है</a></li>
+        <li><a href="#dashboard" data-hi="लाइव जांच" data-en="Live Check">लाइव जांच</a></li>
+      </ul>
+    </div>
+    <div class="ft-col">
+      <h4 data-hi="फसलें" data-en="Crops">फसलें</h4>
+      <ul>
+        <li><span>🌸 </span><span data-hi="कपास" data-en="Cotton">कपास</span></li>
+        <li><span>🌾 </span><span data-hi="गेहूं" data-en="Wheat">गेहूं</span></li>
+        <li><span style="opacity:.4">🌿 </span><span style="opacity:.4" data-hi="और जल्द..." data-en="More soon...">और जल्द...</span></li>
+      </ul>
+    </div>
+    <div class="ft-col">
+      <h4 data-hi="डेटा स्रोत" data-en="Data Source">डेटा स्रोत</h4>
+      <ul>
+        <li><a href="https://power.larc.nasa.gov" target="_blank">NASA POWER API</a></li>
+        <li><span>FAO-56 Standard</span></li>
+        <li><span>Penman-Monteith</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="ft-tech">
+    <div class="tb-row">
+      <span class="tb">Node.js</span><span class="tb">Express</span>
+      <span class="tb">NASA POWER</span><span class="tb">FAO-56 ET₀</span>
+      <span class="tb">Penman-Monteith</span>
+    </div>
+    <span style="font-size:12px;color:rgba(255,255,255,0.25)">Backend: localhost:3000</span>
+  </div>
+  <div class="ft-copy">
+    <span data-hi="© 2025 खतपाणी · किसान के लिए बनाया गया" data-en="© 2025 KhatPaani · Built for the farmer">© 2025 खतपाणी · किसान के लिए बनाया गया</span>
+    <div class="flag-wrap">
+      <div class="fl">
+        <div class="fs fs-o"></div>
+        <div class="fs fs-w"></div>
+        <div class="fs fs-g"></div>
+      </div>
+      <span data-hi="भारत में बना" data-en="Made in India">भारत में बना</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+const API='http://localhost:3000/calculate';
+let lang='hi';
+
+function setLang(l){
+  lang=l;
+  document.getElementById('btn-hi').classList.toggle('active',l==='hi');
+  document.getElementById('btn-en').classList.toggle('active',l==='en');
+  document.querySelectorAll('[data-hi]').forEach(el=>{
+    el.textContent=l==='hi'?el.dataset.hi:el.dataset.en;
+  });
+}
+function t(hi,en){return lang==='hi'?hi:en}
+const CROPS={cotton:{hi:'कपास',en:'Cotton'},wheat:{hi:'गेहूं',en:'Wheat'}};
+function cropName(c){return CROPS[c]?(lang==='hi'?CROPS[c].hi:CROPS[c].en):c}
+
+function renderWeather(w){
+  document.getElementById('wx-strip').classList.add('show');
+  document.querySelector('#wx-strip .wx-title').textContent=t('आज का मौसम — NASA POWER',"Today's Weather — NASA POWER");
+  document.getElementById('wx-items').innerHTML=`
+    <div class="wi"><div class="wi-ico">🌡️</div><span class="wi-v">${w.tempMax?.toFixed(1)??'--'}°C</span><div class="wi-n">${t('अधिकतम ताप','Max Temp')}</div></div>
+    <div class="wi"><div class="wi-ico">🌡️</div><span class="wi-v">${w.tempMin?.toFixed(1)??'--'}°C</span><div class="wi-n">${t('न्यूनतम ताप','Min Temp')}</div></div>
+    <div class="wi"><div class="wi-ico">💧</div><span class="wi-v">${w.humidity?.toFixed(0)??'--'}%</span><div class="wi-n">${t('आर्द्रता','Humidity')}</div></div>
+    <div class="wi"><div class="wi-ico">💨</div><span class="wi-v">${w.windSpeed?.toFixed(1)??'--'} m/s</span><div class="wi-n">${t('हवा','Wind')}</div></div>
+    <div class="wi"><div class="wi-ico">🌧️</div><span class="wi-v">${(w.rain??0).toFixed(1)} mm</span><div class="wi-n">${t('बारिश','Rain')}</div></div>
+    <div class="wi"><div class="wi-ico">☀️</div><span class="wi-v">${w.radiation?.toFixed(1)??'--'}</span><div class="wi-n">${t('विकिरण','Radiation')}</div></div>`;
+}
+
+const FARM_META=[{fc:0.40,wp:0.15},{fc:0.45,wp:0.20}];
+function mpct(soil,fc,wp){return Math.min(100,Math.max(0,Math.round(((soil-wp)/(fc-wp))*100)))}
+
+function renderFarms(results){
+  document.getElementById('farm-grid').innerHTML=results.map((r,i)=>{
+    const m=FARM_META[i]||{fc:0.40,wp:0.15};
+    const pct = mpct(parseFloat(r.soilBefore), m.fc, m.wp);
+    const bc=pct<30?'crit':pct<50?'low':'';
+    const irr=r.irrigate;
+    return`<div class="fc">
+      <div class="fc-top">
+        <div class="fc-av">👨‍🌾</div>
+        <div style="flex:1"><div class="fc-nm">${r.farmer}</div><div class="fc-cr">${cropName(r.crop)} · ET₀ ${r.et0} mm</div></div>
+        <span class="fc-pill ${irr?'p-irr':'p-ok'}">${irr?t('सिंचाई करें','Irrigate'):t('ठीक है','OK')}</span>
+      </div>
+      <div class="fc-body">
+        <div class="chips">
+          <div class="chip"><div class="cl">${t('फसल ET','Crop ET')}</div><span class="cv">${r.etc} mm</span></div>
+          <div class="chip"><div class="cl">${t('बारिश','Rain')}</div><span class="cv">${r.rain} mm</span></div>
+          <div class="chip"><div class="cl">${t('पूर्व नमी','Prev Soil')}</div><span class="cv">${r.soilBefore}</span></div>
+        </div>
+        <div class="m-row"><span>${t('मिट्टी की नमी','Soil Moisture')}</span><span class="m-pct">${pct}%</span></div>
+        <div class="bar-bg"><div class="bar-f ${bc}" style="width:${pct}%"></div></div>
+        <div class="rb ${irr?'irr':'ok'}">
+          <div class="rb-ico">${irr?'💦':'✅'}</div>
+          <div>
+            <div class="rb-main ${irr?'irr':'ok'}">${irr?`${r.waterLiters.toLocaleString('en-IN')} ${t('लीटर पानी दें','Litres needed')}`:t('आज सिंचाई नहीं चाहिए','No irrigation needed today')}</div>
+            <div class="rb-sub">
+              ${t('पहले','Before')}: ${r.soilBefore} |
+              ${t('बाद में','After')}: ${r.soilAfter}
+            </div>
+          </div>
+        </div>
+        <div class="reason">ℹ️ ${r.reason}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+async function calculate(){
+  const btn=document.getElementById('calc-btn');
+  btn.disabled=true;
+  document.getElementById('farm-grid').innerHTML=`
+    <div class="state-box" style="grid-column:1/-1">
+      <div class="se">🌱</div>
+      <div class="st">${t('डेटा ला रहे हैं…','Fetching data…')}</div>
+      <div style="margin-top:16px"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+    </div>`;
+  try{
+    const res=await fetch(API);
+    if(!res.ok)throw new Error(`HTTP ${res.status}`);
+    const data=await res.json();
+    renderWeather(data.weather);
+    renderFarms(data.results);
+  }catch(err){
+    document.getElementById('farm-grid').innerHTML=`
+      <div class="err-box" style="grid-column:1/-1">
+        <div style="font-size:36px">⚠️</div>
+        <div class="err-t">${t('सर्वर से नहीं जुड़ पाए','Could not connect to server')}</div>
+        <div class="err-b">
+          ${t('सुनिश्चित करें कि','Make sure')} <code>node server.js</code> ${t('चल रहा हो','is running')}<br>
+          ${t('पोर्ट','Port')}: <code>3000</code> &nbsp;·&nbsp; ${err.message}
+        </div>
+      </div>`;
+  }finally{btn.disabled=false}
+}
+</script>
+</body>
+</html>
